@@ -191,7 +191,3 @@ You can also delete questions directly from the Django shell:
    - The question will be deleted from the database.
 
 This method is useful for advanced users or when you need to perform bulk deletions programmatically.
-
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
