@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Art Quiz Question</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c1445 0%, #1e3a8a 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        label:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #ffd700;
+            color: #0c1445;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #fff;
+            box-shadow: 0 0 20px #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Cosmic Art Quiz</h1>
+        <form method="post" action="{% url 'quiz:submit' %}">
+            {% csrf_token %}
+            <p class="question">{{ question.question_text }}</p>
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            <div class="options">
+                <label>
+                    <input type="radio" name="option" value="A" required>
+                    <span>{{ question.option_a }}</span>
+                </label>
+                <label>
+                    <input type="radio" name="option" value="B" required>
+                    <span>{{ question.option_b }}</span>
+                </label>
+                <label>
+                    <input type="radio" name="option" value="C" required>
+                    <span>{{ question.option_c }}</span>
+                </label>
+                <label>
+                    <input type="radio" name="option" value="D" required>
+                    <span>{{ question.option_d }}</span>
+                </label>
+            </div>
+            <button type="submit">Submit Answer</button>
+        </form>
+    </div>
+</body>
+</html>

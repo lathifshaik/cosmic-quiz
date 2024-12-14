@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Art Quiz Results</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c1445 0%, #1e3a8a 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        h2, h3 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            font-size: 2.5em;
+        }
+        h3 {
+            font-size: 1.8em;
+        }
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .summary p {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        .question {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .question strong {
+            color: #ffd700;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .correct {
+            color: #4ade80;
+        }
+        .incorrect {
+            color: #f87171;
+        }
+        button {
+            display: block;
+            width: 200px;
+            padding: 15px;
+            margin: 30px auto 0;
+            background-color: #ffd700;
+            color: #0c1445;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #fff;
+            box-shadow: 0 0 20px #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cosmic Art Quiz Results</h2>
+        <div class="summary">
+            <p>Total Correct: <strong>{{ total_correct }}</strong></p>
+            <p>Total Incorrect: <strong>{{ total_incorrect }}</strong></p>
+        </div>
+
+        <h3>Your Journey Through the Stars</h3>
+        {% for submission in submissions %}
+            <div class="question">
+                <p><strong>Question:</strong> {{ submission.question.question_text }}</p>
+
+                <p><strong>Your Answer:</strong> 
+                    <span class="{% if submission.is_correct %}correct{% else %}incorrect{% endif %}">
+                        {{ submission.submitted_option }}
+                    </span>
+                </p>
+                <p><strong>Correct Answer:</strong> {{ submission.question.correct_option }}</p>
+
+                <p><strong>Options:</strong></p>
+                <div class="options">
+                    <div>A: {{ submission.question.option_a }}</div>
+                    <div>B: {{ submission.question.option_b }}</div>
+                    <div>C: {{ submission.question.option_c }}</div>
+                    <div>D: {{ submission.question.option_d }}</div>
+                </div>
+
+                <p><strong>Result:</strong> 
+                    {% if submission.is_correct %}
+                        <span class="correct">Correct</span>
+                    {% else %}
+                        <span class="incorrect">Incorrect</span>
+                    {% endif %}
+                </p>
+            </div>
+        {% endfor %}
+
+        <button onclick="window.location.href='{% url 'quiz:start_quiz' %}'">Explore Again</button>
+    </div>
+</body>
+</html>
